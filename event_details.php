@@ -1,20 +1,34 @@
 <?php
+/*
+Template Name: EventsDetails_Template
+*/
+ 
+get_header(); ?>
+
+<?php
 $servername = "localhost";
-$username = "mhh";
-$password = "root";
-$dbname = "cons_proj";
+$username = "webuser";
+$password = "12345";
+$dbname = "webdb";
 $num_of_events=0;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
 
-$sql = "SELECT * FROM events WHERE id={$_GET['id']} ";
+}
+$eventId=$_GET['eventNumber'];
+
+$sql = "SELECT * FROM events WHERE eventNumber={$eventId} ";
 $result = $conn->query($sql);
-$remove_sql = "SELECT * FROM events WHERE id={$_GET['id']} ";
-//TODO
+
+$remove_sql = "SELECT * FROM events WHERE eventNumber={$eventId} ";
+public function remove ($value='')
+{
+    $result = $conn->query($remove_sql);
+}
+
 $reserve_sql = "Insert into tickets ()";
 
 if ($result->num_rows > 0) {
