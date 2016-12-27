@@ -2,7 +2,10 @@
 /*
 Template Name: EventsDetails_Template
 */
- 
+ session_start();
+   if(!isset($_SESSION['login_user'])){
+      header("location:login");
+   }
 get_header(); ?>
 
 <?php

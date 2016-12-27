@@ -2,6 +2,13 @@
 /*
 Template Name: Events_Template
 */
+session_start();
+  if(isset($_SESSION['manager'])){
+      header("location:404");
+   }
+   elseif(isset($_SESSION['admin'])){
+      header("location:404");
+   }
  
 get_header(); ?>
 
@@ -28,6 +35,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        echo '<img src="data:image/jpg;base64,'.base64_encode( $row['poster'] ).'"width=400 height=300 />';
         echo "<ul>";
         echo "<table width='200'>";
         echo "<tr>";

@@ -11,8 +11,17 @@
  * @since 1.0
  * @version 1.0
  */
-
-get_header(); ?>
+//session_start();
+//$user_check = $_SESSION['login_user'];
+   
+   
+   //if(!isset($_SESSION['login_user'])){
+     // header("location:login");
+   //}
+get_header();
+    
+	
+ ?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
