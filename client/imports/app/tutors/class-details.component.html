@@ -1,0 +1,16 @@
+<form *ngIf="class">
+  <label>Name</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.name" name="name">
+
+  <label>Language</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.language" name="language">
+
+  <button (click)="enroll()">Ask for Enrollment</button>
+  <button [hidden]="!isOwner" (click)="saveClass()">Save class changes</button>
+  <a [routerLink]="['/']">Cancel</a>
+  <br>
+  <br>
+  <br>
+    <h3>number of enrolled students in this class is</h3>
+     <div *ngIf="class"> {{numberOfInStudends}} </div>
+</form>

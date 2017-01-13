@@ -1,0 +1,14 @@
+<login-buttons></login-buttons>
+  <ul>
+    <li *ngFor="let tutor of tutors| async">
+      {{tutor.name}}
+          <ul>
+          <!--<li *ngFor="let language of tutor.languages">-->
+            <!--<p>{{language}}</p>-->
+          <p>{{tutor.language}}</p>
+            <button (click)="removeTutor(tutor)">X</button>
+          </li>
+        </ul>
+    </li>
+  </ul>
+  <tutors-form></tutors-form>

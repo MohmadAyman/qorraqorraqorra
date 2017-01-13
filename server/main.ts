@@ -1,4 +1,5 @@
-import { Main } from "./imports/server-main/main";
-
-const mainInstance = new Main();
-mainInstance.start();
+import { Meteor } from 'meteor/meteor';
+import './imports/publish/classes';
+// Meteor.startup(() => {
+//   loadTutors();
+// });

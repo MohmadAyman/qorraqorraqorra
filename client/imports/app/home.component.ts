@@ -5,19 +5,21 @@ import { Tutors } from '../../../both/collections/tutors.collection';
 import { Tutor } from '../../../both/models/tutor.model';
 import {InjectUser} from "angular2-meteor-accounts-ui";
 
-import template from './app.component.html';
- 
+import template from './home.component.html';
+// import style from './home.component.scss';
+
 @Component({
-  selector: 'app',
+  selector: 'home',
   template
+//   styles : [style] 
 })
 @InjectUser('user')
-export class AppComponent {
+export class HomeComponent {
 
   constructor() {
   }
 
-    logout() {
+logout() {
     Meteor.logout();
   }
 }
