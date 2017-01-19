@@ -6,4 +6,7 @@ import template from './video-one-to-one.component.html';
   template
 })
 
-export class VideoOneToOneComponent{}
+export class VideoOneToOneComponent{
+  username: string;
+  sky = 'skype:super.saiyan@live?call';
+}

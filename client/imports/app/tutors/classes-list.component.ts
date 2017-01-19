@@ -18,11 +18,8 @@ export class ClassesListComponent implements OnInit, OnDestroy {
   classSub: Subscription;
 
     ngOnInit() {
-          this.classSub = MeteorObservable.subscribe('classes', this.classId).subscribe(() => {
-          MeteorObservable.autorun().subscribe(() => {
-            this.classes = Classes.find({});
-          });
-        });
+          this.classes = Classes.find({}).zone();
+          this.classSub = MeteorObservable.subscribe('classes').subscribe();
       }
 
     // only activate when owner
