@@ -20,10 +20,6 @@ export class ClassesListComponent implements OnInit, OnDestroy {
           this.classSub = MeteorObservable.subscribe('classes').subscribe();
       }
   
-    // only activate when owner
-    removeClass(c: Class_): void {
-        Classes.remove(c._id);
-    }
   ngOnDestroy() {
     this.classSub.unsubscribe();
   }

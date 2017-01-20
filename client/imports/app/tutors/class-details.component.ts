@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Meteor } from 'meteor/meteor';
 import { MeteorObservable } from 'meteor-rxjs';
 import { InjectUser } from "angular2-meteor-accounts-ui";
+import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
+
 
 import 'rxjs/add/operator/map';
 
@@ -74,16 +76,8 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return this.class && this.user;
   }
 
-  //  getcourses() {
-      // if (this.user) {
-      //   console.log(classes.find({},{'usersIds':this.user._id}).zone());
-      // }
-  //  }
-
-  // this should be turned into ask for enrolllment later
-
   enroll(){
-    if(!this.isOwner){
+    if(!this.isOwner && this.user && !this.isEnrolled){
       Classes.update(this.class._id, {
           $push:{ usersIds: Meteor.userId() }
         });
@@ -139,6 +133,17 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+    // only activate when owner
+    removeClass(): void {
+      if(this.class.tutorId === this.user._id){ //checking agin before excuting the query
+          Classes.remove(this.class._id);
+          alert('Class removed sucessfuly');
+          this.location.replaceState('/');
+      }else{
+        alert('Are you the tutor of this class?');
+      }
+    }
 
   ngOnDestroy() {
     this.classSub.unsubscribe();
