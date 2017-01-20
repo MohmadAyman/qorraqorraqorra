@@ -2,10 +2,13 @@
     <li *ngFor="let class of classes| async">
           <ul>
           <a [routerLink]="['/class', class._id]">{{class.name}}</a>
-
+          
           <!--<li *ngFor="let language of tutor.languages">-->
             <!--<p>{{language}}</p>-->
           <p>{{class.language}}</p>
+          <div *ngIf="class.active">
+            <p>Class is Currently Active</p>
+          </div>
             <button (click)="removeClass(class)">X</button>
           </li>
         </ul>

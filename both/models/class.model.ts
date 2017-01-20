@@ -7,6 +7,8 @@ export interface Class_ extends CollectionObject {
   schedule: Schedule;
   maxCapacity?: Number;
   usersIds?: string[];
+  active?: boolean;
+  tutorEmail?: string;
 }
 
 interface Schedule {

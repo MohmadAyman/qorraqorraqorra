@@ -5,7 +5,14 @@
   <label>Language</label>
   <input type="text" [disabled]="!isOwner" [(ngModel)]="class.language" name="language">
 
-  <button (click)="enroll()">Ask for Enrollment</button>
+  <p>Class is active is: {{class.active}}</p>
+  <button [hidden]="!isOwner" (click)="activateClass(class)">Activate</button>
+  <button [hidden]="!isOwner" (click)="deactivateClass(class)">DeActivate</button>
+  
+
+  <a [hidden]="!isUser || isOwner || !isEnrolled" href={{skypeCallString}}>Start Class</a>
+
+  <button [hidden]="isOwner" (click)="enroll()">Ask for Enrollment</button>
   <button [hidden]="!isOwner" (click)="saveClass()">Save class changes</button>
   <a [routerLink]="['/']">Cancel</a>
   <br>

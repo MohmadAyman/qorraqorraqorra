@@ -26,6 +26,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   user: Meteor.User;
   students: string[];
   numberOfInStudends: number;
+  skypeCallString: string;
 
   constructor(
     private route: ActivatedRoute
@@ -44,25 +45,34 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
         this.classSub = MeteorObservable.subscribe('classes', this.classId).subscribe(() => {
           MeteorObservable.autorun().subscribe(() => {
             this.class = Classes.findOne(this.classId);
-            this.numberOfInStudends = this.class.usersIds.length;
+            if(this.class.usersIds){
+              this.numberOfInStudends = this.class.usersIds.length;
+            }
+            if(this.class.tutorEmail)
+              this.skypeCallString = 'skype:'+this.class.tutorEmail+'?call';
           });
         });
      });
-  }
+ }
 
   get isOwner(): boolean {
     return this.class && this.user && this.user._id === this.class.tutorId;
   }
+  
+  get isEnrolled(): boolean {
+    if(this.class.usersIds){
+      return Classes.findOne({
+          usersIds:{
+            $elemMatch:{$eq: this.user._id}
+          }
+        }).name == this.class.name;
+    }
+    return false;
+  }
 
-  // get isEnrolled(): boolean {
-      // if (this.user) {
-      //   console.log(Classes.find({
-      //     usersIds:{
-      //       $elemMatch:{$eq: this.user._id}
-      //     }
-      //   }))
-      // }
-  // }
+  get isUser(): boolean {
+    return this.class && this.user;
+  }
 
   //  getcourses() {
       // if (this.user) {
@@ -80,6 +90,40 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  activateClass(c: Class_):void{
+    if (!Meteor.userId()||!this.isOwner) {
+      alert('Are you the tutor of this class?');
+      return;
+    }
+    Classes.update(this.class._id, {
+          $set:{
+              name: this.class.name,
+              language: this.class.language,
+              tutorId: this.class.tutorId,
+              schedule: this.class.schedule,
+              active: true
+        }
+      });
+  }
+
+
+  deactivateClass(c: Class_):void{
+    if (!Meteor.userId()||!this.isOwner) {
+      alert('Are you the tutor of this class?');
+      return;
+    }
+    Classes.update(this.class._id, {
+          $set:{
+              name: this.class.name,
+              language: this.class.language,
+              tutorId: this.class.tutorId,
+              schedule: this.class.schedule,
+              active: false
+        }
+      });
+  }
+
   saveClass(){
     if (!Meteor.userId()||!this.isOwner) {
       alert('Are you the tutor of this class?');
@@ -90,7 +134,8 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
               name: this.class.name,
               language: this.class.language,
               tutorId: this.class.tutorId,
-              schedule: this.class.schedule
+              schedule: this.class.schedule,
+              active: false
         }
       });
   }

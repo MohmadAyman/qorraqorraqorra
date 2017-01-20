@@ -10,6 +10,7 @@ import {RecoverComponent} from "./auth/recover.component";
 import { SignupTutorComponent } from "./auth/singup-tutor.component";
 import { VideoOneToOneComponent } from './communication/video-one-to-one.component';
 import { HomeComponent } from './home.component';
+import { ActiveClasses } from './communication/active-classes.component';
 
 export const routes: Route[] = [
   { path: '', component: HomeComponent },
@@ -21,5 +22,6 @@ export const routes: Route[] = [
   { path: 'signup', component: SignupComponent },
   { path: 'recover', component: RecoverComponent },
   { path: 'tutor/signup', component: SignupTutorComponent},
-  { path: 'one2one', component: VideoOneToOneComponent}
+  { path: 'one2one', component: VideoOneToOneComponent},
+  { path: 'active-classes', component: ActiveClasses}
 ];
