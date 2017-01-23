@@ -1,9 +1,11 @@
 import { Route } from '@angular/router';
  
 import { TutorsListComponent } from './tutors/tutors-list.component';
-import { AddClassFormComponent } from './tutors/addClass-form.component'; 
+import { AddClassFormComponent } from './tutors/addClass-form.component';
+import { TutorsFormComponent } from './tutors/tutors-form.component'; 
 import { ClassesListComponent } from './tutors/classes-list.component';
 import { ClassDetailsComponent } from './tutors/class-details.component';
+import { TutorDetailsComponent } from './tutors/tutor-details.component';
 import {LoginComponent} from "./auth/login.component";
 import {SignupComponent} from "./auth/singup.component";
 import {RecoverComponent} from "./auth/recover.component";
@@ -12,9 +14,11 @@ import { VideoOneToOneComponent } from './communication/video-one-to-one.compone
 import { HomeComponent } from './home.component';
 import { ActiveClasses } from './communication/active-classes.component';
 
+
 export const routes: Route[] = [
   { path: '', component: HomeComponent },
   { path: 'tutors', component: TutorsListComponent },
+  { path: 'newtutor', component: TutorsFormComponent },
   { path: 'addClass', component: AddClassFormComponent },
   { path: 'classesList', component: ClassesListComponent},
   { path: 'class/:classId', component: ClassDetailsComponent},
@@ -23,5 +27,6 @@ export const routes: Route[] = [
   { path: 'recover', component: RecoverComponent },
   { path: 'tutor/signup', component: SignupTutorComponent},
   { path: 'one2one', component: VideoOneToOneComponent},
-  { path: 'active-classes', component: ActiveClasses}
+  { path: 'active-classes', component: ActiveClasses},
+  { path: 'tutors/:tutorId', component: TutorDetailsComponent}
 ];

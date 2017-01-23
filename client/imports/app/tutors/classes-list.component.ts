@@ -16,8 +16,9 @@ export class ClassesListComponent implements OnInit, OnDestroy {
   classSub: Subscription;
 
     ngOnInit() {
-          this.classes = Classes.find({}).zone();
-          this.classSub = MeteorObservable.subscribe('classes').subscribe();
+          this.classSub = MeteorObservable.subscribe('classes').subscribe(() => {
+                    this.classes = Classes.find({}).zone();
+          });
       }
   
   ngOnDestroy() {

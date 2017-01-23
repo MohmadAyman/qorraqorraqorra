@@ -38,34 +38,26 @@ export class TutorsFormComponent implements OnInit {
     });
   }
 
-  addTutor(): void {
-    if (this.addForm.valid) {
-      Tutors.insert(this.addForm.value);
+  // addTutor(): void {
+  //   if (this.addForm.valid) {
+  //     Tutors.insert(this.addForm.value);
  
+  //     this.addForm.reset();
+  //   }
+  // }
+
+  addTutor(): void {
+    if (!Meteor.userId()) {
+      alert('login first to be able to register as a Tutor');
+      return;
+    }
+
+    if (this.addForm.valid) {
+      Tutors.insert(Object.assign({},this.addForm.value,{ userId: Meteor.userId()}));
+
       this.addForm.reset();
     }
   }
-//   addTutor(): void {
-//     if (Meteor.userId()) {
-//       alert('login first to be able to register as a Tutor');
-//       return;
-//     }
-
-//     if (this.addForm.valid) {
-//       Tutors.insert({
-//         name: this.addForm.value.name,
-//         description: this.addForm.value.description,
-//         location: {
-//           name: this.addForm.value.location
-//         },
-//         images: this.images,
-//         public: this.addForm.value.public,
-//         owner: Meteor.userId()
-//       });
-
-//       this.addForm.reset();
-//     }
-//   }
 
 //   onImage(imageId: string) {
 //     this.images.push(imageId);

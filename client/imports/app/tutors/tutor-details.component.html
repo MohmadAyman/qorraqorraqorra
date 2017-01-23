@@ -1,0 +1,36 @@
+  <div *ngIf="tutor">
+    <label>Name</label>
+      <input [(ngModel)]="tutor.name"></input>
+    <label>Hourly rating</label>
+      <div [(ngModel)]="tutor.hourly_rating"></div>
+    <label>Language</label>
+      <div [(ngModel)]="tutor.language"></div>
+    <label>Classes</label>
+    <!--<ul>
+    <li *ngFor="let class of tutorClasses| async">
+          <ul>
+          <a [routerLink]="['/class', class._id]">{{class.name}}</a>
+          
+          <p>{{class.language}}</p>
+          <div *ngIf="class.active">
+            <p>Class is Currently Active</p>
+          </div>
+          </li>
+        </ul>
+    </li>
+    </ul>-->
+  </div>
+<!--
+  <label>Name</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.name" name="name">
+  <br>
+  <label>Language</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.language" name="language">
+
+
+  <a [routerLink]="['/tutors', class.tutorId]">Tutor's profile</a>
+
+  <a [hidden]="!isUser || isOwner || !isEnrolled" href={{skypeCallString}}>Start Class</a>
+
+    <!--<h3>number of enrolled students in this class is</h3>
+     <div *ngIf="class"> {{numberOfInStudends}} </div>-->

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Meteor } from 'meteor/meteor';
 import { MeteorObservable } from 'meteor-rxjs';
 import { InjectUser } from "angular2-meteor-accounts-ui";
-import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router, Location} from 'angular2/router';
 
 
 import 'rxjs/add/operator/map';

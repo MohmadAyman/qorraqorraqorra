@@ -23,6 +23,7 @@ export class AddClassFormComponent implements OnInit{
     this.addForm = this.formBuilder.group({
       name: ['', Validators.required],
       language: ['', Validators.required],
+      rating: ['', Validators.required],
       schedule : [],
       active: false
     });
