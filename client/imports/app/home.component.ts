@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import { Meteor} from 'meteor/meteor';
 import { Tutors } from '../../../both/collections/tutors.collection';
 import { Tutor } from '../../../both/models/tutor.model';
 import {InjectUser} from "angular2-meteor-accounts-ui";

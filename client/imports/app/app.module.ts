@@ -18,8 +18,10 @@ import { FileDropModule } from "angular2-file-drop";
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { TUTOR_DECLARATIONS } from './tutors';
+import { USER_DECLARATIONS } from './users';
 import { CommDeclerations } from './communication';
 import { HomeComponent } from './home.component';
+
 
 @NgModule({
   imports: [
@@ -43,6 +45,7 @@ import { HomeComponent } from './home.component';
     ...TUTOR_DECLARATIONS,
     ...SHARED_DECLARATIONS,
     ...AUTH_DECLARATIONS,
+    ...USER_DECLARATIONS,
     ...CommDeclerations
   ],
   bootstrap: [

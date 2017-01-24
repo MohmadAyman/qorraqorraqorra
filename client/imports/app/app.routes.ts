@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
  
 import { TutorsListComponent } from './tutors/tutors-list.component';
 import { AddClassFormComponent } from './tutors/addClass-form.component';
+import { AddClassUserFormComponent } from './users/addClass-form.component';
 import { TutorsFormComponent } from './tutors/tutors-form.component'; 
 import { ClassesListComponent } from './tutors/classes-list.component';
 import { ClassDetailsComponent } from './tutors/class-details.component';

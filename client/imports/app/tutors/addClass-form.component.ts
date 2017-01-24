@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tutors } from '../../../../both/collections/tutors.collection';
 import { Classes } from '../../../../both/collections/classes.collection';
 import { InjectUser } from "angular2-meteor-accounts-ui";
+import { Meteor } from 'meteor/meteor';
 
 import template from './addClass-form.component.html';
  

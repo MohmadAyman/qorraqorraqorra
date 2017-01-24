@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tutors } from '../../../../both/collections/tutors.collection';
 import { Classes } from '../../../../both/collections/classes.collection';
-
+import { Meteor } from 'meteor/meteor';
 import template from './addClass-form.component.html';
  
 @Component({
-  selector: 'addClass-form',
+  selector: 'addClass-Userform',
   template
 })
-export class AddClassFormComponent implements OnInit{
+export class AddClassUserFormComponent implements OnInit{
 
  addForm: FormGroup;
  
