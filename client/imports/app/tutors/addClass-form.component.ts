@@ -24,6 +24,7 @@ export class AddClassFormComponent implements OnInit{
       name: ['', Validators.required],
       language: ['', Validators.required],
       rating: ['', Validators.required],
+      description: [],
       schedule : [],
       active: false
     });

@@ -27,6 +27,7 @@ import template from './tutor-details.component.html';
 @InjectUser('user')
 export class TutorDetailsComponent implements OnInit, OnDestroy {
   tutorId: string;
+  tutorAsUserId: string;
   tutor: Tutor;
   paramsSub: Subscription;
   classesSub: Subscription;
@@ -35,7 +36,7 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
   tutor_user_email: string;
   //TODO enable tutors to hold more than one class.
   class: Class_;
-  tutorClasses: Class_[];
+  tutorClasses: Observable<Class_[]>;
   user: Meteor.User;
 
   constructor(
@@ -52,20 +53,26 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
         }
     });
     this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
-      this.tutor=Tutors.findOne({userId: {$eq: this.tutorId} });
+      this.tutor=Tutors.findOne(this.tutorId);
+      this.tutorAsUserId=this.tutor.userId;
     });
     
     this.tutorSub = MeteorObservable.subscribe('users').subscribe(() => {
-      this.tutor_user_email=Users.findOne(this.tutorId).emails[0].address;
+      this.tutor_user_email=Users.findOne(this.tutorAsUserId).emails[0].address;
       this.mailtoTutor="mailto:"+ this.tutor_user_email;
-      console.log(this.mailtoTutor);
   });
     
     
     //TODO only find classes that this tutor do
-    // this.classesSub = MeteorObservable.subscribe('classes').subscribe(() => {
-    //   this.tutorClasses = Classes.find().zone();
-    // });
+    this.classesSub = MeteorObservable.subscribe('classes').subscribe(() => {
+      this.tutorClasses = Classes.find({tutorId: {$eq: this.tutorAsUserId} });
+  });
+  }
+
+  get isMe(): boolean {
+    if(this.user)
+      return this.user._id === this.tutorAsUserId;
+    return false;
   }
 
     ngOnDestroy() {

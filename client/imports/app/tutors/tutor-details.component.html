@@ -1,10 +1,10 @@
   <div *ngIf="tutor">
     <label>Name</label>
-      <input [(ngModel)]="tutor.name"></input><br>
+      <input [disabled]="!isMe" [(ngModel)]="tutor.name"></input><br>
     <label>Hourly rating</label>
-      <input [(ngModel)]="tutor.hourly_rating"></input><br>
+      <input [disabled]="!isMe" [(ngModel)]="tutor.hourly_rating"></input><br>
     <label>Language</label>
-      <input [(ngModel)]="tutor.language"></input><br>
+      <input [disabled]="!isME" [(ngModel)]="tutor.language"></input><br>
     <label>Classes</label>
     <!--<ul>
     <li*ngFor="let class of tutorClasses| async">
@@ -32,6 +32,18 @@
     </form>
     </div>
   </div>
+
+  <div class="card-columns">
+  <div class="card" *ngFor="let class of tutorClasses| async">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-block">
+      <a [routerLink]="['/tutors', tutor._id]"><h4 class="card-title">{{tutor.name}}</h4></a>
+      <a [routerLink]="['/tutors', tutor._id]" class="card-text" >{{tutor.language}}</a>
+            <button (click)="removeTutor(tutor)">X</button>
+    </div>
+  </div>
+</div>
+
 <!--
   <label>Name</label>
   <input type="text" [disabled]="!isOwner" [(ngModel)]="class.name" name="name">

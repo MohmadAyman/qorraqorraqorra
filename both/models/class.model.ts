@@ -1,7 +1,7 @@
 import { CollectionObject } from './collection-object.model';
 
 export interface Class_ extends CollectionObject {
-  tutorId: string;
+  tutorId: string; //tutor's UserId
   name: string;
   language: string;
   schedule: Schedule;
