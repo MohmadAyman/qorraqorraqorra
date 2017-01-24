@@ -5,6 +5,7 @@ export interface Class_ extends CollectionObject {
   name: string;
   language: string;
   schedule: Schedule;
+  description?: string;
   rating?: Number;
   maxCapacity?: Number;
   usersIds?: string[];

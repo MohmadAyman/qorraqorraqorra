@@ -1,13 +1,13 @@
   <div *ngIf="tutor">
     <label>Name</label>
-      <input [(ngModel)]="tutor.name"></input>
+      <input [(ngModel)]="tutor.name"></input><br>
     <label>Hourly rating</label>
-      <div [(ngModel)]="tutor.hourly_rating"></div>
+      <input [(ngModel)]="tutor.hourly_rating"></input><br>
     <label>Language</label>
-      <div [(ngModel)]="tutor.language"></div>
+      <input [(ngModel)]="tutor.language"></input><br>
     <label>Classes</label>
     <!--<ul>
-    <li *ngFor="let class of tutorClasses| async">
+    <li*ngFor="let class of tutorClasses| async">
           <ul>
           <a [routerLink]="['/class', class._id]">{{class.name}}</a>
           
@@ -19,6 +19,18 @@
         </ul>
     </li>
     </ul>-->
+    <div *ngIf="user">
+    <form action={{mailtoTutor}} method="post" enctype="text/plain">
+    <label> Contact tutor: </label>
+    Your Name:<br>
+      <input type="text" name="name"><br>
+      <input [hidden]="true" type="text" [(ngModel)]="user.emails[0].address" name="mail"><br>
+      Message:<br>
+      <input type="text" name="comment" size="50"><br><br>
+      <input type="submit" value="Send">
+      <input type="reset" value="Reset">
+    </form>
+    </div>
   </div>
 <!--
   <label>Name</label>

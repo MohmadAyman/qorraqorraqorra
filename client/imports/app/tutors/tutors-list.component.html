@@ -1,14 +1,10 @@
-<login-buttons></login-buttons>
-  <ul>
-    <li *ngFor="let tutor of tutors| async">
-      {{tutor.name}}
-          <ul>
-          <!--<li *ngFor="let language of tutor.languages">-->
-            <!--<p>{{language}}</p>-->
-          <p>{{tutor.language}}</p>
+<div class="card-columns">
+  <div class="card" *ngFor="let tutor of tutors| async">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-block">
+      <a [routerLink]="['/tutors', tutor._id]"><h4 class="card-title">{{tutor.name}}</h4></a>
+      <a [routerLink]="['/tutors', tutor._id]" class="card-text" >{{tutor.language}}</a>
             <button (click)="removeTutor(tutor)">X</button>
-          </li>
-        </ul>
-    </li>
-  </ul>
-  <tutors-form></tutors-form>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,8 @@ import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 
 import 'rxjs/add/operator/map';
 
+import { Users } from '../../../../both/collections/users.collection';
+
 import { Classes } from '../../../../both/collections/classes.collection';
 import { Class_ } from  '../../../../both/models/class.model';
 
@@ -29,13 +31,12 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
   paramsSub: Subscription;
   classesSub: Subscription;
   tutorSub: Subscription;
+  mailtoTutor: string;
+  tutor_user_email: string;
   //TODO enable tutors to hold more than one class.
   class: Class_;
   tutorClasses: Class_[];
   user: Meteor.User;
-  students: string[];
-  numberOfInStudends: number;
-  skypeCallString: string;
 
   constructor(
     private route: ActivatedRoute
@@ -46,26 +47,25 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
       .map(params => params['tutorId']) 
       .subscribe(tutorId => {
         this.tutorId = tutorId;
-
-
-
-  
         if (this.tutorSub) {
           this.tutorSub.unsubscribe();
         }
-
-      //TODO only find classes that this tutor do
-      // this.classesSub = MeteorObservable.subscribe('classes').subscribe(() => {
-      //   this.tutorClasses = Classes.find().zone();
-      // });
     });
-            this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
-          console.log('Found');
-          
-          this.tutor=Tutors.findOne({userId: {$eq: this.tutorId} });
-          console.log('Found');
-          console.log(this.tutor);
-        });
+    this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
+      this.tutor=Tutors.findOne({userId: {$eq: this.tutorId} });
+    });
+    
+    this.tutorSub = MeteorObservable.subscribe('users').subscribe(() => {
+      this.tutor_user_email=Users.findOne(this.tutorId).emails[0].address;
+      this.mailtoTutor="mailto:"+ this.tutor_user_email;
+      console.log(this.mailtoTutor);
+  });
+    
+    
+    //TODO only find classes that this tutor do
+    // this.classesSub = MeteorObservable.subscribe('classes').subscribe(() => {
+    //   this.tutorClasses = Classes.find().zone();
+    // });
   }
 
     ngOnDestroy() {

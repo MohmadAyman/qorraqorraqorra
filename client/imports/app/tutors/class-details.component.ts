@@ -76,14 +76,17 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return this.class && this.user;
   }
 
-  enroll(){
+  enroll(): void {
     if(!this.isOwner && this.user && !this.isEnrolled){
       Classes.update(this.class._id, {
-          $push:{ usersIds: Meteor.userId() }
+          $push:{ requestesIds: Meteor.userId() }
         });
     }
   }
 
+  acceptEnrollment(): void {
+
+  }
 
   activateClass(c: Class_):void{
     if (!Meteor.userId()||!this.isOwner) {

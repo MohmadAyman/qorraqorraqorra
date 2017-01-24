@@ -1,15 +1,11 @@
-  <ul>
-    <li *ngFor="let class of classes| async">
-          <ul>
-          <a [routerLink]="['/class', class._id]">{{class.name}}</a>
-          
-          <!--<li *ngFor="let language of tutor.languages">-->
-            <!--<p>{{language}}</p>-->
-          <p>{{class.language}}</p>
-          <div *ngIf="class.active">
-            <p>Class is Currently Active</p>
-          </div>
-          </li>
-        </ul>
-    </li>
-  </ul>
+<div class="card-columns">
+  
+  <div class="card" *ngFor="let class of classes| async">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-block">
+      <a [routerLink]="['/class', class._id]"><h4 class="card-title">{{class.name}}</h4></a>
+      <a [routerLink]="['/class', class._id]" class="card-text" >{{class.name}}</a>
+      <p class="card-text"><small class="text-muted">{{class.language}}</small></p>
+    </div>
+  </div>
+</div>
