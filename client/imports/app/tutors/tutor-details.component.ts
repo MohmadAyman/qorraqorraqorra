@@ -81,7 +81,10 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
       return this.user._id === this.tutorAsUserId;
     return false;
   }
-  addClass(r: Request):{
+  addClass(r: Request): void{
+    Requests.insert(Object.assign({ tutorId: Meteor.userId() 
+        ,tutorEmail: this.user.emails[0].address, language:this.tutor.language,
+       schedule: r.startDate}));
 
   }
 

@@ -15,7 +15,6 @@ export interface Class_ extends CollectionObject {
 }
 
 interface Schedule {
-  start?: Date;
-  end?: Date;
-  days?: string[];
+  startDate: Date;
+  startTime?: string;
 }
