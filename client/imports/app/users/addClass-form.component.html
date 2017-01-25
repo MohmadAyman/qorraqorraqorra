@@ -1,4 +1,7 @@
-Enter the language and the time and we will match you with a quran tutor.
+<h3> Join a Quran class today </h3>
+<h6> Enter the the date and time of the class </h6>
+<h6> and choose the language you want the class in 
+  and we will match you with a tutor for live lessons.</h6> 
   <!--<label>Class Name</label>
   <input type="text" formControlName="name">
  
@@ -14,47 +17,29 @@ Enter the language and the time and we will match you with a quran tutor.
   <input id="whatever" class="timepicker" type="text" name="startTime">
 <template name="addClass-form">-->
 
-<form [formGroup]="addForm" (ngSubmit)="addClass()">
-  <label>Class Name</label>
-  <input type="text" formControlName="name"><br>
+<form [formGroup]="addForm" (ngSubmit)="addClass()"> 
+  
  
-  <label>Language</label>
-  <input type="text" formControlName="language"><br>
+  <label for="language" class="col-2 col-form-label">Language</label>
+    <div class="col-10">
+  <input type="text" class="form-control" formControlName="language" id="language">
+    </div>
 
-  <label>Hourly rating</label>
-  <input type="text" formControlName="rating"><br>
-  <label>description</label>
-  <input type="text" formControlName="description"><br>
+<label for="comment" class="col-2 col-form-label">comment</label>
+   <div class="col-10">
+  <input type="text" class="form-control" formControlName="comment" id="description">
+   </div>
+  
+  <label for="example-date" class="col-2 col-form-label">Date</label>
+  <div class="col-10">
+    <input class="form-control" formControlName="startDate" type="date" value="2011-08-19T13:45:00" id="example-date">
+  </div>
 
-<div class="form-group row">
-  <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+  <label for="example-datetime-local-input" class="col-2 col-form-label">Time</label>
   <div class="col-10">
-    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+    <input class="form-control" formControlName="startTime" type="time" value="13:45:00" id="example-datetime-local-input">
   </div>
-</div>
-<div class="form-group row">
-  <label for="example-date-input" class="col-2 col-form-label">Date</label>
-  <div class="col-10">
-    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-month-input" class="col-2 col-form-label">Month</label>
-  <div class="col-10">
-    <input class="form-control" type="month" value="2011-08" id="example-month-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-week-input" class="col-2 col-form-label">Week</label>
-  <div class="col-10">
-    <input class="form-control" type="week" value="2011-W33" id="example-week-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-time-input" class="col-2 col-form-label">Time</label>
-  <div class="col-10">
-    <input class="form-control" type="time" value="13:45:00" id="example-time-input">
-  </div>
-</div>
-  <button>Add</button>
+
+  <br>
+<button type="button" class="btn btn-secondary" (click)="addClass()">Secondary</button>
 </form>

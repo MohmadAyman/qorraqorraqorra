@@ -1,40 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tutors } from '../../../../both/collections/tutors.collection';
-import { Classes } from '../../../../both/collections/classes.collection';
+import { Requests } from '../../../../both/collections/requests.collection';
 import { Meteor } from 'meteor/meteor';
 import template from './addClass-form.component.html';
- 
+
+
 @Component({
   selector: 'addClass-Userform',
   template
 })
 export class AddClassUserFormComponent implements OnInit{
-
+ startDate: any;
  addForm: FormGroup;
  
   constructor(
     private formBuilder: FormBuilder
-  ) {}
+      ) {
+    this.location = location; 
+  }
  
   ngOnInit() {
     this.addForm = this.formBuilder.group({
-      name: ['', Validators.required],
       language: ['', Validators.required],
-      schedule : []
+      startDate: [''],
+      startTime: [''],
+      comment: ['']
     });
   }
 
   addClass(): void {
+
      if (!Meteor.userId()) {
-      alert('Please log in to add a party');
+      alert('Please log in first');
       return;
     }
-  
+    
     if (this.addForm.valid) {
-      Classes.insert(Object.assign({},this.addForm.value,{ tutorId: Meteor.userId() }));
+      Requests.insert(Object.assign({},this.addForm.value,{ userId: Meteor.userId() }));
  
       this.addForm.reset();
+      window.location.href = '/tutors';
     }
   }
 

@@ -4,7 +4,7 @@ export interface Class_ extends CollectionObject {
   tutorId: string; //tutor's UserId
   name: string;
   language: string;
-  schedule: Schedule;
+  schedule: string;
   description?: string;
   rating?: Number;
   maxCapacity?: Number;
