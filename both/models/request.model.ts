@@ -4,7 +4,7 @@ export interface Request extends CollectionObject {
   tutorId?: string; //tutor's UserId
   language: string;
   startDate: Date;
-  startTime: Time;
+  startTime: string;
   userId: string;
   comment?: string;
 }

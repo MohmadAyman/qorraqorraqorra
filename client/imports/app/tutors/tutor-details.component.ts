@@ -82,14 +82,15 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
     return false;
   }
   addClass(r: Request): void{
-    Requests.insert(Object.assign({ tutorId: Meteor.userId() 
-        ,tutorEmail: this.user.emails[0].address, language:this.tutor.language,
-       schedule: r.startDate}));
-
+    Classes.insert(Object.assign({ tutorId: Meteor.userId() 
+        ,language:this.tutor.language,
+       startDate: r.startDate, startTime: r.startTime, userId:r.userId}));
+    Requests.remove(r._id);
   }
 
     ngOnDestroy() {
-      // this.classesSub.unsubscribe();
+      this.reqSub.unsubscribe();
+      this.classesSub.unsubscribe();
       this.paramsSub.unsubscribe();
       this.tutorSub.unsubscribe();
     }
