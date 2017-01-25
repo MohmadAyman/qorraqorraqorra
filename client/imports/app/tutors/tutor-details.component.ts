@@ -7,6 +7,8 @@ import { MeteorObservable } from 'meteor-rxjs';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 
+import { Requests } from '../../../../both/collections/requests.collection';
+import { Request } from '../../../../both/models/request.model';
 
 import 'rxjs/add/operator/map';
 
@@ -31,7 +33,9 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
   tutor: Tutor;
   paramsSub: Subscription;
   classesSub: Subscription;
+  reqSub: Subscription;
   tutorSub: Subscription;
+  requests: Observable<Request[]>;
   mailtoTutor: string;
   tutor_user_email: string;
   //TODO enable tutors to hold more than one class.
@@ -62,6 +66,9 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
       this.mailtoTutor="mailto:"+ this.tutor_user_email;
   });
     
+  this.reqSub = MeteorObservable.subscribe('requests').subscribe(() => {
+      this.requests=Requests.find();
+  });
     
     //TODO only find classes that this tutor do
     this.classesSub = MeteorObservable.subscribe('classes').subscribe(() => {
@@ -73,6 +80,9 @@ export class TutorDetailsComponent implements OnInit, OnDestroy {
     if(this.user)
       return this.user._id === this.tutorAsUserId;
     return false;
+  }
+  addClass(r: Request):{
+
   }
 
     ngOnDestroy() {

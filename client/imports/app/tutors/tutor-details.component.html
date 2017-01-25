@@ -6,6 +6,22 @@
     <label>Language</label>
       <input [disabled]="!isME" [(ngModel)]="tutor.language"></input><br>
     <label>Classes</label>
+
+  <div *ngIf="isMe">
+      <div class="card-columns">
+      <div class="card" *ngFor="let request of requests| async">
+        <img class="card-img-top" src="background.png" alt="Card image cap" style="width:250px;height:200px;">
+        <div class="card-block">
+          <h4 class="card-title">{{request.startTime}}</h4></a>
+          <a [routerLink]="['/tutors', tutor._id]" class="card-text" >{{request.startDate}}</a>
+          <br>
+          {{request.language}}
+          <br>
+          <button type="button" class="btn btn-primary" (click)="addClass(request)">Accept Class</button>
+        </div>
+      </div>
+      </div>
+  </div>
     <!--<ul>
     <li*ngFor="let class of tutorClasses| async">
           <ul>
@@ -43,18 +59,3 @@
     </div>
   </div>
 </div>
-
-<!--
-  <label>Name</label>
-  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.name" name="name">
-  <br>
-  <label>Language</label>
-  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.language" name="language">
-
-
-  <a [routerLink]="['/tutors', class.tutorId]">Tutor's profile</a>
-
-  <a [hidden]="!isUser || isOwner || !isEnrolled" href={{skypeCallString}}>Start Class</a>
-
-    <!--<h3>number of enrolled students in this class is</h3>
-     <div *ngIf="class"> {{numberOfInStudends}} </div>-->

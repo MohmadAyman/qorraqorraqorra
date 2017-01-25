@@ -5,7 +5,6 @@ import { Requests } from '../../../../both/collections/requests.collection';
 import { Meteor } from 'meteor/meteor';
 import template from './addClass-form.component.html';
 
-
 @Component({
   selector: 'addClass-Userform',
   template
