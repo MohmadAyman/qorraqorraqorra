@@ -36,6 +36,9 @@ export class TutorsListComponent {
       // });
   }
 
+    get isAdmin(): boolean{
+      return false;
+    }
 
     removeTutor(tutor: Tutor){
       Tutors.remove(tutor._id);

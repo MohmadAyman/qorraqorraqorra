@@ -14,10 +14,11 @@ import { SignupTutorComponent } from "./auth/singup-tutor.component";
 import { VideoOneToOneComponent } from './communication/video-one-to-one.component';
 import { HomeComponent } from './home.component';
 import { ActiveClasses } from './communication/active-classes.component';
-
+import { ThanksComponent} from './users/thanks.component';
 
 export const routes: Route[] = [
   { path: '', component: HomeComponent },
+  { path: 'thanks', component: ThanksComponent },
   { path: 'tutors', component: TutorsListComponent },
   { path: 'newtutor', component: TutorsFormComponent },
   { path: 'addClass', component: AddClassFormComponent },

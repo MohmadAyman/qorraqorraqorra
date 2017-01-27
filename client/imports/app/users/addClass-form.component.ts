@@ -16,7 +16,6 @@ export class AddClassUserFormComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder
       ) {
-    this.location = location; 
   }
  
   ngOnInit() {
@@ -35,11 +34,12 @@ export class AddClassUserFormComponent implements OnInit{
       return;
     }
     
+    // TODO check if the user already requested a class
     if (this.addForm.valid) {
       Requests.insert(Object.assign({},this.addForm.value,{ userId: Meteor.userId() }));
  
       this.addForm.reset();
-      window.location.href = '/tutors';
+      window.location.href = '/thanks';
     }
   }
 
