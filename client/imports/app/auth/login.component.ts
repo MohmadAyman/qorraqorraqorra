@@ -1,7 +1,12 @@
-import {Component, OnInit, NgZone} from '@angular/core';
+import {Component, OnInit, NgZone, OnDestroy} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Meteor } from 'meteor/meteor';
+import { MeteorObservable } from 'meteor-rxjs';
+import { Tutors } from '../../../../both/collections/tutors.collection';
+import { Tutor } from  '../../../../both/models/tutor.model';
 
 import template from './login.component.html';
 
@@ -12,6 +17,9 @@ import template from './login.component.html';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string;
+  tutorId: string;
+  tutor: Tutor;
+  tutorSub: Subscription;
 
   constructor(private router: Router, private zone: NgZone, private formBuilder: FormBuilder) {}
 
@@ -20,6 +28,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.tutorSub = MeteorObservable.subscribe('tutors');
 
     this.error = '';
   }
@@ -32,9 +41,21 @@ export class LoginComponent implements OnInit {
             this.error = err;
           });
         } else {
-          this.router.navigate(['/']);
-        }
+          this.tutorSub.subscribe(() => {
+            this.tutor = Tutors.findOne({userId:{$eq:Meteor.userId()}});
+            if(this.tutor){
+                window.location.href = '/tutors/'+this.tutor._id;
+            }
+            else{
+              window.location.href = '/classesList';
+            }
+          });
+  
+    }
       });
     }
+  }
+  ngOnDestroy() {
+    this.tutorSub.unsubscribe();
   }
 }

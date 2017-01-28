@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tutors } from '../../../../both/collections/tutors.collection';
 import { Classes } from '../../../../both/collections/classes.collection';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import { Meteor } from 'meteor/meteor';
+import { Observable } from 'rxjs/Observable';
+import { MeteorObservable } from 'meteor-rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 import template from './addClass-form.component.html';
  
@@ -14,36 +17,47 @@ import template from './addClass-form.component.html';
 @InjectUser('user')
 export class AddClassFormComponent implements OnInit{
   user: Meteor.User;  
- addForm: FormGroup;
- 
+  addForm: FormGroup;
+  tutorSub: Subscription;
+  is_a_tutor: boolean;
+
   constructor(
     private formBuilder: FormBuilder
   ) {}
  
   ngOnInit() {
-    this.addForm = this.formBuilder.group({
-      name: ['', Validators.required],
+     this.addForm = this.formBuilder.group({
       language: ['', Validators.required],
-      rating: ['', Validators.required],
-      description: [],
-      schedule : [],
-      active: false
+      startDate: ['',Validators.required],
+      startTime: ['',Validators.required],
+      comment: [''],
+      userSkype: [''],
+      userGmail: ['']
     });
   }
 
   addClass(): void {
      if (!Meteor.userId()) {
-      alert('Please log in to add a party');
+      alert('Please log in first');
       return;
     }
-  
-    if (this.addForm.valid) {
+    this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
+            if(Tutors.findOne({userId:{$eq:Meteor.userId()}})){
+              if (this.addForm.valid) {
 
-      Classes.insert(Object.assign({},this.addForm.value,{ tutorId: Meteor.userId() 
-        ,tutorEmail: this.user.emails[0].address}));
- 
-      this.addForm.reset();
-    }
+                Classes.insert(Object.assign({},this.addForm.value,{ tutorId: Meteor.userId()}));
+                
+                alert('you have successfuly added a class at '+this.addForm.value.startTime);
+                this.addForm.reset();
+              }else{
+                console.log(this.addForm.value);
+                alert('Form invalid');
+              }
+            }else{
+              alret('Are you a tutuor?');
+            }
+    }); 
+    // check if hes a tutor
   }
 
 }

@@ -16,7 +16,7 @@
 
   <a [hidden]="!isUser || isOwner || !isEnrolled" href={{skypeCallString}}>Start Class</a>
 
-  <button [hidden]="isOwner" (click)="enroll()">Ask for Enrollment</button>
+  <button [hidden]="isOwner" (click)="askForEnrollment()">Ask for Enrollment</button>
   <button [hidden]="!isOwner" (click)="saveClass()">Save class changes</button>
   <br>
   <br>

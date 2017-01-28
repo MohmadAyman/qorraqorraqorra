@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Meteor } from 'meteor/meteor';
@@ -25,9 +24,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   user: Meteor.User;
 
 
-  constructor(
-    private route: ActivatedRoute
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.paramsSub = this.route.params
@@ -60,10 +57,18 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
 //  }
 
 // this should be turned into ask for enrolllment later
-  enroll(){
+  askForEnrollment(){
+    console.log('in askForEnrollment');
+    //TODO to enable more than a single student use 
+    //the commented lines
+    // Classes.update(this.class._id, {
+    //     $push:{ usersIds: Meteor.userId() }
+    //   });
     Classes.update(this.class._id, {
-        $push:{ usersIds: Meteor.userId() }
+        $push:{ enrollmentRequests: Meteor.userId() }
       });
+      alert('your request has benn made, thanks');
+      window.location.href = '/thanks';
   }
 
   saveClass(){
@@ -73,10 +78,8 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     }
     Classes.update(this.class._id, {
           $set:{
-              name: this.class.name,
               language: this.class.language,
-              tutorId: this.class.tutorId,
-              schedule: this.class.schedule
+              tutorId: this.class.tutorId
         }
       });
   }

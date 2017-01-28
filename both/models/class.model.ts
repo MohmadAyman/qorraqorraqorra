@@ -5,11 +5,15 @@ export interface Class_ extends CollectionObject {
   language: string;
   startDate: Date;
   startTime: string;
-  userId: string;
+
+  enrollmentRequests?: string[];
+  userId?: string;
+  userGmail?: string;
+  userSkype?: string;
   description?: string;
   rating?: Number;
   maxCapacity?: Number;
-  requestesIds?: string[];
+  requestesIds?: string[]; //is it used?
   active?: boolean;
   tutorEmail?: string;
 }

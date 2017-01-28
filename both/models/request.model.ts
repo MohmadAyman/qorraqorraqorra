@@ -7,4 +7,6 @@ export interface Request extends CollectionObject {
   startTime: string;
   userId: string;
   comment?: string;
+  userGmail?: string;
+  userSkype?: string;
 }

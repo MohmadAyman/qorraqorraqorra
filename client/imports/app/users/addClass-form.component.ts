@@ -5,6 +5,9 @@ import { Requests } from '../../../../both/collections/requests.collection';
 import { Meteor } from 'meteor/meteor';
 import template from './addClass-form.component.html';
 
+
+
+// Should be renamed to addRequest
 @Component({
   selector: 'addClass-Userform',
   template
@@ -21,9 +24,11 @@ export class AddClassUserFormComponent implements OnInit{
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       language: ['', Validators.required],
-      startDate: [''],
-      startTime: [''],
-      comment: ['']
+      startDate: ['',Validators.required],
+      startTime: ['',Validators.required],
+      comment: [''],
+      userSkype: [''],
+      userGmail: ['']
     });
   }
 

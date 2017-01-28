@@ -61,14 +61,23 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return this.class && this.user && this.user._id === this.class.tutorId;
   }
   
+  // get isEnrolled(): boolean {
+  //   if(this.class.usersIds){
+  //     return Classes.findOne({
+  //         usersIds:{
+  //           $elemMatch:{$eq: this.user._id}
+  //         }
+  //       }).name == this.class.name;
+  //   }
+  //   return false;
+  // }
+
   get isEnrolled(): boolean {
-    if(this.class.usersIds){
+    if(this.class.userId){
       return Classes.findOne({
-          usersIds:{
-            $elemMatch:{$eq: this.user._id}
-          }
-        }).name == this.class.name;
-    }
+          userId:{$eq: this.user._id}
+        });
+      }
     return false;
   }
 
@@ -81,6 +90,16 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
       Classes.update(this.class._id, {
           $push:{ requestesIds: Meteor.userId() }
         });
+    }
+  }
+
+  askForEnrollment(){
+    if(!this.isOwner && this.user && !this.isEnrolled){
+      Classes.update(this.class._id, {
+        $push:{ enrollmentRequests: Meteor.userId() }
+      });
+      alert('your request has benn made, thanks');
+      window.location.href = '/thanks';
     }
   }
 
