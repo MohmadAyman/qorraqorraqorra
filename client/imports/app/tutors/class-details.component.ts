@@ -6,9 +6,6 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorObservable } from 'meteor-rxjs';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import {ROUTER_DIRECTIVES, Router, Location} from 'angular2/router';
-import { Requests } from '../../../../both/collections/requests.collection';
-import { Request } from '../../../../both/models/request.model';
-import { Tutor } from  '../../../../both/models/tutor.model';
 
 
 import 'rxjs/add/operator/map';
@@ -27,58 +24,38 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   classId: string;
   paramsSub: Subscription;
   classSub: Subscription;
-  tutorSub: Subscription;
   class: Class_;
   user: Meteor.User;
-  users_requests: string[];
+  students: string[];
   numberOfInStudends: number;
   skypeCallString: string;
-  tutor: Tutor;
-  
+
   constructor(
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    // this.paramsSub = this.route.params
-    //   .map(params => params['classId'])
-    //   .subscribe(classId => {
-    //     this.classId = classId;
-        
-    //     // if (this.classSub) {
-    //     //   this.classSub.unsubscribe();
-    //     // }
-    //  });
-
-    //   this.classSub = MeteorObservable.subscribe('classes').subscribe(() => {
-    //       console.log(this.classId);
-    //       this.class = Classes.findOne(this.classId);
-    //       this.users_requests = this.class.enrollmentRequests;
-    //     //   if(this.class.usersIds){
-    //     //     this.numberOfInStudends = this.class.usersIds.length;
-    //     //   }
-    //     //   if(this.class.tutorEmail)
-    //     //     this.skypeCallString = 'skype:'+this.class.tutorEmail+'?call';
-    //     // }
-    //     });
-
-   this.paramsSub = this.route.params
-      .map(params => params['classId']) 
+    this.paramsSub = this.route.params
+      .map(params => params['classId'])
       .subscribe(classId => {
-        this.classId = classId;
-        if (this.tutorSub) {
+        this.classId = classId
+        
+        if (this.classSub) {
           this.classSub.unsubscribe();
         }
-    });
-    this.classSub = MeteorObservable.subscribe('classes').subscribe(() => {
-      this.class=Classes.findOne(this.classId);
-      // this.tutorAsUserId=this.tutor.userId;
-    });
-    
-    if(Meteor.userId()===this.class.tutorId){
-      this.tutor=true;
-    }else{this.tutor=false;}
-    
+
+        this.classSub = MeteorObservable.subscribe('classes', this.classId).subscribe(() => {
+          MeteorObservable.autorun().subscribe(() => {
+            this.class = Classes.findOne(this.classId);
+          //   if(this.class.usersIds){
+          //     this.numberOfInStudends = this.class.usersIds.length;
+          //   }
+          //   if(this.class.tutorEmail)
+          //     this.skypeCallString = 'skype:'+this.class.tutorEmail+'?call';
+          // }
+          });
+        });
+     });
  }
 
   get isOwner(): boolean {
@@ -120,6 +97,13 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     return this.class && this.user;
   }
 
+  // enroll(): void {
+  //   if(!this.isOwner && this.user && !this.isEnrolled){
+  //     Classes.update(this.class._id, {
+  //         $push:{ requestesIds: Meteor.userId() }
+  //       });
+  //   }
+  // }
 
   askForEnrollment(){
     if(!this.isOwner && this.user && !this.isEnrolled){
