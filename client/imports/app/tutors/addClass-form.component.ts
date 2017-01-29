@@ -54,7 +54,7 @@ export class AddClassFormComponent implements OnInit{
                 alert('Form invalid');
               }
             }else{
-              alret('Are you a tutuor?');
+              alert('Are you a tutuor?');
             }
     }); 
     // check if hes a tutor

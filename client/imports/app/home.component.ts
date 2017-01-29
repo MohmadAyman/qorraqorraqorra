@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { MeteorObservable } from 'meteor-rxjs';
+import { Subscription } from 'rxjs/Subscription';
+
 import { Meteor} from 'meteor/meteor';
 import { Tutors } from '../../../both/collections/tutors.collection';
 import { Tutor } from '../../../both/models/tutor.model';
@@ -15,11 +18,28 @@ import template from './home.component.html';
 })
 @InjectUser('user')
 export class HomeComponent {
+  tutorSub: Subscription;
+  tutor: Tutor;
+
 
   constructor() {
   }
+  
+  ngOnInit(){
+    if(Meteor.userId()){
+      this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
+            this.tutor = Tutors.findOne({userId:{$eq:Meteor.userId()}});
+      });
+    }
+  }
 
-logout() {
+  logout() {
     Meteor.logout();
+  }
+
+  ngOnDestroy() {
+    if(this.tutor){
+        this.tutorSub.unsubscribe();
+    }
   }
 }
