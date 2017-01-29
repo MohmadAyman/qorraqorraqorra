@@ -1,13 +1,12 @@
 <form *ngIf="class">
-  <label>Name</label>
-  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.name" name="name">
+  <label>Time</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.startTime" name="name">
   <br>
-  <label>Language</label>
-  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.language" name="language">
+  <label>Date</label>
+  <input type="text" [disabled]="!isOwner" [(ngModel)]="class.startDate" name="language">
   <br>
   <a [routerLink]="['/tutors', class.tutorId]">Tutor's profile</a>
   <br>
-  <label>Hourly rate</label>
   
   <p>Class is currently active is: {{class.active}}</p>
   <button [hidden]="!isOwner" (click)="activateClass(class)">Activate</button>
@@ -25,13 +24,16 @@
     <!--<h3>number of enrolled students in this class is</h3>
      <div *ngIf="class"> {{numberOfInStudends}} </div>-->
 </form>
+
 <div *ngIf="tutor">
   <div class="card-columns">
     <h3> Pending requests </h3>
-    <div class="card" *ngFor="let user of users_requests| async">
+    <div class="card" *ngFor="let user of users_requests">
       <img class="card-img-top" src="..." alt="Card image cap">
       <div class="card-block">
-        <h4 class="card-title">{{user.emails[0].address}}</h4>
+        <h5>Should display student details here</h5>
+        <button type="button" class="btn btn-success" (click)="acceptStudent(user)">Accept Request</button>
+        <h4 class="card-title">{{user}}</h4>
       </div>
     </div>
   </div>

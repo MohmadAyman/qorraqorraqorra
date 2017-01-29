@@ -28,9 +28,10 @@ export class MyClassesListComponent implements OnInit, OnDestroy {
       if(Meteor.userId()){      
             this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
               if(Tutors.findOne({userId:{$eq:Meteor.userId()}})){
+                console.log('tutor');
                 this.is_a_tutor=true;
                 this.classSub = MeteorObservable.subscribe('classes').subscribe(() => {
-                    this.classes = Classes.find({tutorId:{$eq:Meteor.userId()}}).zone();
+                    this.classes = Classes.find({tutorId:{$eq:Meteor.userId()}});
                 });
               }else{
                 console.log('Not a tutor');

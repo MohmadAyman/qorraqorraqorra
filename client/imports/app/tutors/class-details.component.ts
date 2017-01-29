@@ -6,7 +6,11 @@ import { Meteor } from 'meteor/meteor';
 import { MeteorObservable } from 'meteor-rxjs';
 import { InjectUser } from "angular2-meteor-accounts-ui";
 import {ROUTER_DIRECTIVES, Router, Location} from 'angular2/router';
+import { Tutors } from '../../../../both/collections/tutors.collection';
+import { Tutor } from  '../../../../both/models/tutor.model';
 
+import { Request } from  '../../../../both/models/request.model';
+import { Requests } from '../../../../both/collections/requests.collection';
 
 import 'rxjs/add/operator/map';
 
@@ -24,11 +28,16 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   classId: string;
   paramsSub: Subscription;
   classSub: Subscription;
+  tutorSub: Subscription;
+  reqSub: Subscription;
+  tutor: Tutor;
   class: Class_;
   user: Meteor.User;
   students: string[];
   numberOfInStudends: number;
   skypeCallString: string;
+  users_requests: string [];
+
 
   constructor(
     private route: ActivatedRoute
@@ -56,8 +65,35 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
           });
         });
      });
+
+    this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
+      this.tutor=Tutors.findOne({userId:{$eq:Meteor.userId()}});
+      if(this.tutor){
+          console.log('class has '+this.class.enrollmentRequests.length+'reqs');
+          if(this.class.enrollmentRequests.length>0){
+            this.users_requests=this.class.enrollmentRequests;
+          }
+        }
+    });
+
+
  }
 
+  acceptStudent(s:string): void{
+      console.log('Should accepet student, notifiy him,decline other requests, notifiy the declined students');
+    if (!this.isOwner) {
+      alert('Are you the tutor of this class?');
+      return;
+    }
+    Classes.update(this.class._id,{
+      $set:{
+        userId: s,
+        enrollmentRequests: ''
+      }
+    });
+    alert('You succeffuly acceppted a student for this class');
+  }
+ 
   get isOwner(): boolean {
     return this.class && this.user && this.user._id === this.class.tutorId;
   }
@@ -88,7 +124,7 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
           usersIds:{
             $elemMatch:{$eq: this.user._id}
           }
-        }).name == this.class.name;
+        });
     }
     return false;
   }
@@ -181,5 +217,9 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.classSub.unsubscribe();
     this.paramsSub.unsubscribe();
+    
+    if(this.tutor){
+      this.tutorSub.unsubscribe();
+    }
   }
 }
