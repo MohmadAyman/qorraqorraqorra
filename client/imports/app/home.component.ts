@@ -21,13 +21,13 @@ export class HomeComponent {
   tutorSub: Subscription;
   tutor: Tutor;
 
-
   constructor() {
   }
   
   ngOnInit(){
     if(Meteor.userId()){
       this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
+            // console.log(Meteor.userId());
             this.tutor = Tutors.findOne({userId:{$eq:Meteor.userId()}});
       });
     }

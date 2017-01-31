@@ -69,14 +69,13 @@ export class ClassDetailsComponent implements OnInit, OnDestroy {
     this.tutorSub = MeteorObservable.subscribe('tutors').subscribe(() => {
       this.tutor=Tutors.findOne({userId:{$eq:Meteor.userId()}});
       if(this.tutor){
-          console.log('class has '+this.class.enrollmentRequests.length+'reqs');
+        if(this.class.enrollmentRequests){
           if(this.class.enrollmentRequests.length>0){
             this.users_requests=this.class.enrollmentRequests;
-          }
-        }
+           }
+         }
+       }
     });
-
-
  }
 
   acceptStudent(s:string): void{
